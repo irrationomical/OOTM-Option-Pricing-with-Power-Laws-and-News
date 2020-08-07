@@ -1,2 +1,4 @@
 # OOTM-Option-Pricing-with-Power-Laws-and-News
-Uses math heuristics and formulas published in Nassim Taleb's Statistical Consequences of Fat Tails book to price OOTM options. Predicts whether options will be valuable based on sentiment analysis in news.
+In Nassim Taleb's Antifragile he mentions that CEOs (mostly "fragilistas") featured in Forbe's are generally overconfident and blind to tails risks. He goes as far as saying that there is alpha in betting against these people. I want to test this statement and see whether overconfidence as evidenced by public statements and media effects the fair price of OOTM options.
+
+In this repo, I use math heuristics and formulas published in Nassim Taleb's Statistical Consequences of Fat Tails book to assign fair prices OOTM options. The formulas focus on power law distributions and their ability to explain "outlier" events. I will then use sentiment analysis on Forbes & similar publications to determine whether any factors have an infuence on the fair price of OOTM options.
