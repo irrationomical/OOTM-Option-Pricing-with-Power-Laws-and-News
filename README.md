@@ -6,8 +6,9 @@ In the fair_options_pricing.ipynb file (mostly complete), I use math published i
 In the HawkesProcesses.ipynb file (in progress), I use Taleb's statistical framework as a foundation for building an Event Study on near-term OOTM Technology stock options with expirations following important scheduled corperate news events such as earnings. I build a bivariate Hawkes process with exponential marks and a power law kernel. I define the log-likelihood function and fit it to 1 minute stock data using quasi-Newton optimization. I then add a second kernel to account for changes due to the news events. By grouping similar stocks within Technology, I plan to model how earnings outcomes (i.e. performance metrics) predict the parameters on the second Hawkes process kernel. I then will backtest an options-trading strategy using the predicted second-kernel parameters to value near-term OOTM options via simulation.
 
 For designing the Hawkes process framework, I relied most heavily on the following sources:
-https://arxiv.org/abs/1502.04592 (great literature overview)
-https://arxiv.org/abs/1302.1405 (uses HPs w/ power laws to measure critical reflexivity in markets)
-https://people.math.ethz.ch/~embrecht/ftp/Hawkes_PE_TL_LL.pdf (Looks into multivariate point processes with vector-valued marks) 
-https://arxiv.org/abs/1405.6047 (FX markets w/ news)
-https://link.springer.com/content/pdf/10.1007/BF02480272.pdf (derivation of MLE jacobian)
+
+* https://arxiv.org/abs/1502.04592 (great literature overview)
+* https://arxiv.org/abs/1302.1405 (uses HPs w/ power laws to measure critical reflexivity in markets)
+* https://people.math.ethz.ch/~embrecht/ftp/Hawkes_PE_TL_LL.pdf (Looks into multivariate point processes with vector-valued marks) 
+* https://arxiv.org/abs/1405.6047 (FX markets w/ news)
+* https://link.springer.com/content/pdf/10.1007/BF02480272.pdf (derivation of MLE jacobian)
