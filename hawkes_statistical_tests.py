@@ -57,7 +57,6 @@ def get_hawkes_residuals(data, kernel_type, kernel_dim):
     # get intensity over time
     intensity_track_step = data[-1,0] / (data.shape[0] * 100)
     tracked_intensity, intensity_times = learner.estimated_intensity(timestamps, intensity_track_step)
-    print(tracked_intensity)
     # want to get integral of intensity between each event
     residuals = [] # len of residuals is dimension
     for i in range(kernel_dim):
@@ -73,8 +72,6 @@ def get_hawkes_residuals(data, kernel_type, kernel_dim):
     return residuals
 
 
-# note: generated data is not showing up as iid on this test. not sure why
-
 def determine_if_iid(residuals):
     """ check if iid using Ljung-Box test
         Q follows chi-squared with h degrees of freedom if no autocorrelation
@@ -84,7 +81,7 @@ def determine_if_iid(residuals):
     q_percentiles = []
     h = 50  # number of lags tested
 
-    # each dimension must be iid
+    # each dimension must be iid  - len(residuals) = number of dimensions of hawkes process
     for i in range(len(residuals)):
         N = len(residuals[i])
 
@@ -95,19 +92,18 @@ def determine_if_iid(residuals):
             if k in cached_p_hats:
                 return cached_p_hats[k]
             else:
-                cached_p_hats[k] = np.mean([(residuals[i][j] * residuals[i][j - k]) for j in range(k, N)])
-                print("cached", k, cached_p_hats[k])
+                mu = np.mean(residuals[i])
+                var = np.mean(np.array(residuals[i]) ** 2) - (mu ** 2)
+                pearson_corr = np.mean([((residuals[i][j]-mu) * (residuals[i][j - k]-mu)) for j in range(k, N)]) / var
+                cached_p_hats[k] = pearson_corr
                 return cached_p_hats[k]
 
-        local_q_percentiles = []
+        # note range is to h+2 because it's exclusive
+        Q = N * (N + 2) * np.sum([(p_hat(k) ** 2) / (N - k) for k in range(2, h + 2)])
+        # check that in range of chi squared cdf
+        q_percentiles.append(chi_squared_cdf(h, Q))
 
-        for j in range(2, h + 1):
-            Q = N * (N + 2) * np.sum(
-                [(p_hat(k) ** 2) / (N - k) for k in range(2, j + 2)])  # i + 2 because range is exclusive
-            # check that in range of chi squared cdf
-            local_q_percentiles.append(chi_squared_cdf(j, Q))
-
-        q_percentiles.append(local_q_percentiles)
+    # if q_percentiles > 1-alpha for confidence level, null is rejected
 
     return q_percentiles
 
