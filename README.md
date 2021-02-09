@@ -1,6 +1,6 @@
 # OOTM-Option-Pricing-with-Power-Laws-and-News
 
-*note: for work more representative of my current abilities please see my Discord-Stonks repository.*
+__*note: for work more representative of my current abilities please see my Discord-Stonks repository.*__
 
 In Nassim Taleb's Antifragile he mentions that CEOs featured in Forbe's (mostly "fragilistas") can be overconfident and blind to tails risks. He even claims that there is alpha in betting against these people. I want to test this statement (along with several others) and see whether public statements and media effects the fair price of OOTM options.
 
